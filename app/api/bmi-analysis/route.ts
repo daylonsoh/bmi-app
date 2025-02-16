@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { currentBMI, trend, history } = await request.json();
+    const { currentBMI, trend } = await request.json();
     
     console.log('Received request:', { currentBMI, trend });
 

@@ -42,7 +42,7 @@ export function DailyQuote() {
       </CardHeader>
       <CardContent className="relative">
         <p className="text-lg italic text-rose-800 font-medium leading-relaxed">
-          "{quote}"
+          &ldquo;{quote}&rdquo;
         </p>
       </CardContent>
     </Card>

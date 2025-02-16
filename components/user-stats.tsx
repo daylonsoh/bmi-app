@@ -8,7 +8,7 @@ import { useGameification } from "@/lib/use-gameification"
 
 export function UserStats() {
   const { bmi } = useBMI()
-  const { points, badges, incrementPoints } = useGameification()
+  const { points, badges } = useGameification()
   const [kickstarterProgress, setKickstarterProgress] = useState(0)
 
   useEffect(() => {

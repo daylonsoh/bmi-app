@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 interface BMIDataPoint {
   date: Date;
@@ -16,13 +16,7 @@ export default function BMIAnalysis({ bmiHistory }: BMIAnalysisProps) {
   const [trend, setTrend] = useState<'increasing' | 'decreasing' | 'stable' | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (bmiHistory.length > 0) {
-      analyzeBMITrend();
-    }
-  }, [bmiHistory]);
-
-  const analyzeBMITrend = async () => {
+  const analyzeBMITrend = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -39,8 +33,6 @@ export default function BMIAnalysis({ bmiHistory }: BMIAnalysisProps) {
       }
       setTrend(trend);
 
-      console.log('Sending request with:', { currentBMI, trend });
-
       const response = await fetch('/api/bmi-analysis', {
         method: 'POST',
         headers: {
@@ -48,8 +40,7 @@ export default function BMIAnalysis({ bmiHistory }: BMIAnalysisProps) {
         },
         body: JSON.stringify({
           currentBMI,
-          trend,
-          history: bmiHistory
+          trend
         }),
       });
 
@@ -77,7 +68,13 @@ export default function BMIAnalysis({ bmiHistory }: BMIAnalysisProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [bmiHistory]);
+
+  useEffect(() => {
+    if (bmiHistory.length > 0) {
+      analyzeBMITrend();
+    }
+  }, [bmiHistory, analyzeBMITrend]);
 
   const getBMIStatus = (bmi: number) => {
     if (bmi < 18.5) return 'underweight';
