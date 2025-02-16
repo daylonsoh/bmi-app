@@ -55,7 +55,7 @@ export function BMITracker() {
   return (
     <Card className="col-span-full bg-gradient-to-br from-violet-100 via-pink-100 to-cyan-100 border-none shadow-lg">
       <CardHeader className="text-violet-800">
-        <CardTitle>Today's BMI</CardTitle>
+        <CardTitle>Today&apos;s BMI</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid md:grid-cols-2 gap-6">
